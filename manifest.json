@@ -1,12 +1,13 @@
 {
-        "short_name": "jarvis",
-        "name": "jarvis: any help you?",
         
-        "start_url": "/",
-        "background_color": "#3367D6",
-        "display": "standalone",
-        "theme_color": "#3367D6",
-        "scope":"/",
+  "name": "jarvis ",
+  "short_name": "jarvis",
+  "theme_color": "#17530b",
+  "background_color": "#ec3f77",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "https://bhaskar0509.github.io/jarvis2.0/"
+
         "icons": [
           {
             "src": "avatar.png",
