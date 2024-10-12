@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;200;300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto Mono", monospace;
+}
+
+body {
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.main {
+  text-align: center;
+  background: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.main .image-container {
+  padding: 10px;
+}
+
+.main .image-container .image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.main .image-container .image img {
+  width: 350px;
+}
+
+.main .image-container h1 {
+  color: #00bcd4;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.main .image-container p {
+  color: #00bcd4;
+  font-size: 18px;
+  margin-bottom: 40px;
+}
+
+.main .input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  height: 50px;
+  border-radius: 20px;
+  background: rgb(202 253 255 / 50%);
+}
+
+.main .input .talk {
+  background: transparent;
+  border: none;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.main .input .talk i {
+  font-size: 24px;
+  color: #aed0d0;
+}
+
+.main .input .content {
+  color: #aed0d0;
+  font-size: 16px;
+  margin-right: 20px;
+}
+/* Add this to style.css */
+.talk {
+  display: none; /* Hidden by default */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #00bcd4;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.talk.glow {
+  display: block; /* Make button visible */
+  box-shadow: 0 0 15px #00bcd4, 0 0 30px #00bcd4;
+  animation: glow-animation 1s infinite alternate;
+}
+
+@keyframes glow-animation {
+  0% {
+      box-shadow: 0 0 5px #00bcd4;
+  }
+  100% {
+      box-shadow: 0 0 20px #00bcd4;
+  }
+}
