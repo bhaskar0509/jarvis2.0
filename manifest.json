@@ -5,7 +5,7 @@
   "background_color": "#ec3f77",
   "display": "standalone",
   "scope": "/",
-  "start_url": "https://bhaskar0509.github.io/manifest.json/",
+  "start_url": "https://bhaskar0509.github.io/manifest.json",
   "icons": [
     {
       "src": "avatar.png",
