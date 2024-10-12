@@ -1,24 +1,20 @@
 {
-        
-  "name": "jarvis ",
+  "name": "jarvis",
   "short_name": "jarvis",
   "theme_color": "#17530b",
   "background_color": "#ec3f77",
   "display": "standalone",
   "scope": "/",
-  "start_url": "https://bhaskar0509.github.io/jarvis2.0/"
-
-        "icons": [
-          {
-            "src": "avatar.png",
-            "type": "image/png",
-            "sizes": "512x512"
-          }
-          
-        ]
-    
+  "start_url": "https://bhaskar0509.github.io/jarvis2.0/",
+  "icons": [
+    {
+      "src": "avatar.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
 }
-        
+
         
     
     
