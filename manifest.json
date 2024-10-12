@@ -1,0 +1,26 @@
+{
+        "short_name": "jarvis",
+        "name": "jarvis: any help you?",
+        
+        "start_url": "/index.html",
+        "background_color": "#3367D6",
+        "display": "standalone",
+        "orientation":"portrait-primary",
+        "theme_color": "#3367D6",
+        
+        "icons": [
+          {
+            "src": "avatar.png",
+            "type": "image/png",
+            "sizes": "512x512"
+          }
+          
+        ]
+    
+}
+        
+        
+    
+    
+    
+
