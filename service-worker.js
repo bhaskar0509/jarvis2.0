@@ -6,8 +6,8 @@ const urlsToCache = [
   '/jarvis2.0/manifest.json',
   '/jarvis2.0/styles.css',
   '/jarvis2.0/js/script.js',
-  '/jarvis2.0/images/icon.jpg',
-  '/jarvis2.0/images/jarvis.jpg',
+  '/jarvis2.0/images/logo144x144.png',
+  '/jarvis2.0/images/logo512x512.png',
   // Add other assets to cache
 ];
 
