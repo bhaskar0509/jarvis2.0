@@ -1,10 +1,14 @@
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/jarvis2.0/service-worker.js').then(() => {
-        console.log('Service Worker registered');
-    }).catch((error) => {
-        console.error('Service Worker registration failed:', error);
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/jarvis2.0/service-worker.js').then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }).catch((error) => {
+            console.error('Service Worker registration failed:', error);
+        });
     });
 }
+
+  
 
 
 
@@ -146,6 +150,11 @@ window.addEventListener('keydown', (e) => {
         recognition.start(); // Start listening for "Hello Jarvis" after greeting
     }
 });
+
+// Allow the button to restart recognition after it has been stopped
+recognition.onend = () => {
+    btn.classList.add('glow'); // Make the button glow again when recognition stops
+};
 
 // Allow the button to restart recognition after it has been stopped
 recognition.onend = () => {
