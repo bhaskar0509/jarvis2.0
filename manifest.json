@@ -1,36 +1,26 @@
 {
-        "short_name": "jarvis",
-        "name": "jarvis: any help you?",
-        
-        "start_url":  "jarvis2.0/index.html",
-        "background_color": "#3367D6",
-        "display": "standalone",
-        "orientation":"portrait-primary",
-        "theme_color": "#3367D6",
-        
-        "icons": [
-          {
-            "src": "avatar.png",
-            "type": "image/png",
-            "sizes": "512x512"
-          },
-          {
-            "src": "jarvis.jpeg",
-            "type": "image/jpeg",
-            "sizes": "283x178"
-          },
-          {
-            "src": "iron man.jpg",
-            "type": "image/jpg",
-            "sizes": "300x169"
-          }
-          
-        ]
-    
+  "short_name": "jarvis",
+  "name": "jarvis: any help you?",
+  "start_url": "/jarvis2.0/index.html",
+  "background_color": "#3367D6",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#3367D6",
+  "icons": [
+      {
+          "src": "/jarvis2.0/images/icon.jpg",
+          "type": "icon/jpg",
+          "sizes": "192x192"
+      },
+      {
+          "src": "/jarvis2.0/images/jarvis.jpeg",
+          "type": "image/jpeg",
+          "sizes": "283x178"
+      },
+      {
+          "src": "/jarvis2.0/images/iron man.jpg",
+          "type": "image/jpg",
+          "sizes": "200x113"
+      }
+  ]
 }
-        
-        
-    
-    
-    
-

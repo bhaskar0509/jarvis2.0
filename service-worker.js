@@ -1,16 +1,19 @@
 // Define the cache name and list of files to cache
 const CACHE_NAME = 'jarvis-cache-v1';
 const urlsToCache = [
-  './',
-  './index.html',
-  './js/script.js',
-  './style.css',
-  './images/avatar.png',
-  './images/giphy.gif',
-  './images/jarvis.jpeg',
-  './images/iron_man.jpg',
-  './manifest.json'
-];
+  
+    './jarvis2.0/',
+    './jarvis2.0/index.html',
+    './jarvis2.0/js/script.js',
+    './jarvis2.0/style.css',
+    './jarvis2.0/images/icon.jpg',
+    './jarvis2.0/images/giphy.gif',
+    './jarvis2.0/images/jarvis.jpeg',
+    './jarvis2.0/images/iron_man.jpg',
+    './jarvis2.0/manifest.json'
+  ];
+  
+
 
 // Install the Service Worker
 self.addEventListener('install', (event) => {

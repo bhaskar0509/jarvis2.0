@@ -1,10 +1,13 @@
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js').then(() => {
+    navigator.serviceWorker.register('/jarvis2.0/service-worker.js').then(() => {
         console.log('Service Worker registered');
     }).catch((error) => {
         console.error('Service Worker registration failed:', error);
     });
 }
+
+
+
 
 
 const btn = document.querySelector('.talk');
