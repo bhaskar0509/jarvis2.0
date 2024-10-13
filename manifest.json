@@ -1,21 +1,24 @@
 {
-    "name": "Jarvis",
-    "short_name": "Jarvis",
-    "start_url": "/jarvis2.0/",
+    "short_name": "jarvis",
+    "name": "Jarvis: Any help you?",
+    "start_url": "/jarvis2.0/index.html",
+    "background_color": "#3367D6",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
+    "orientation": "portrait-primary",
+    "theme_color": "#3367D6",
     "icons": [
-      {
-        "src": "/jarvis2.0/images/icon.jpg",
-        "sizes": "192x192",
-        "type": "image/jpeg"
-      },
-      {
-        "src": "/jarvis2.0/images/jarvis.jpg",
-        "sizes": "512x512",
-        "type": "image/jpeg"
-      }
+        {
+            "src": "/jarvis2.0/images/logo144x144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "/jarvis2.0/images/logo512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+        
     ]
-  }
+}
+
   
