@@ -1,16 +1,15 @@
-// Service Worker
-
-const CACHE_NAME = 'jarvis-cache-v1'; // Name of the cache
+// Define the cache name and list of files to cache
+const CACHE_NAME = 'jarvis-cache-v1';
 const urlsToCache = [
-  './index.html', // Cache the main HTML file
-  './js/script.js', // Cache your main JavaScript file
-  './css/styles.css', // Cache your CSS file (if you have one)
-  './avatar.png', // Cache any images (update as needed)
-  './giphy.gif', // Cache any images (update as needed)
-  './jarvis.jpeg', // Cache any images (update as needed)
-  './manifest.json', // Cache manifest
-  './iron man.jpg' // Cache any other images
-  // Add any other assets you want to cache
+  './',
+  './index.html',
+  './js/script.js',
+  './style.css',
+  './images/avatar.png',
+  './images/giphy.gif',
+  './images/jarvis.jpeg',
+  './images/iron_man.jpg',
+  './manifest.json'
 ];
 
 // Install the Service Worker
@@ -18,7 +17,7 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Opened cache and caching assets');
+        console.log('Opened cache');
         return cache.addAll(urlsToCache); // Add files to the cache
       })
   );
@@ -30,13 +29,7 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request)
       .then((response) => {
         // Return the cached response if available, otherwise fetch from the network
-        return response || fetch(event.request)
-          .catch(() => {
-            // Fallback content can be served here
-            if (event.request.mode === 'navigate') {
-              return caches.match('./index.html'); // Serve index.html for navigation requests
-            }
-          });
+        return response || fetch(event.request);
       })
   );
 });
@@ -49,7 +42,6 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (!cacheWhitelist.includes(cacheName)) {
-            console.log(`Deleting old cache: ${cacheName}`);
             return caches.delete(cacheName); // Delete old caches
           }
         })
