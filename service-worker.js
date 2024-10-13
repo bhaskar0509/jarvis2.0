@@ -8,8 +8,8 @@ const urlsToCache = [
   './avatar.png', // Cache any images (update as needed)
   './giphy.gif', // Cache any images (update as needed)
   './jarvis.jpeg', // Cache any images (update as needed)
-  './manifest.json', // Cache manifest
-  './iron man.jpg' // Cache any other images
+  './manifest.json' // Cache manifest
+   // Cache any other images
   // Add any other assets you want to cache
 ];
 
