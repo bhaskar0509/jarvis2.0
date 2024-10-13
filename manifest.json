@@ -8,12 +8,12 @@
     "theme_color": "#3367D6",
     "icons": [
         {
-            "src": "/jarvis2.0/images/logo144x144.png",
+            "src": "/jarvis2.0/images/icon144x144.png",
             "type": "image/png",
             "sizes": "144x144"
         },
         {
-            "src": "/jarvis2.0/images/logo512x512.png",
+            "src": "/jarvis2.0/images/icon512x512.png",
             "type": "image/png",
             "sizes": "512x512"
         }
