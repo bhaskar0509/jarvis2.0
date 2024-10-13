@@ -2,7 +2,7 @@
         "short_name": "jarvis",
         "name": "jarvis: any help you?",
         
-        "start_url": "/index.html",
+        "start_url":  "jarvis2.0/index.html",
         "background_color": "#3367D6",
         "display": "standalone",
         "orientation":"portrait-primary",
@@ -18,6 +18,11 @@
             "src": "jarvis.jpeg",
             "type": "image/jpeg",
             "sizes": "283x178"
+          },
+          {
+            "src": "iron man.jpg",
+            "type": "image/jpg",
+            "sizes": "300x169"
           }
           
         ]
