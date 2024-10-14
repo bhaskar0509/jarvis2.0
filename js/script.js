@@ -16,6 +16,8 @@ if ('serviceWorker' in navigator) {
 
 const btn = document.querySelector('.talk');
 const content = document.querySelector('.content');
+btn.style.display = 'none';
+
 
 let inactivityTimeout; // Variable to track inactivity timeout
 let recognitionTimeout; // Variable to track program exit timeout
