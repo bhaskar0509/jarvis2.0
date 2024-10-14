@@ -17,12 +17,9 @@ if ('serviceWorker' in navigator) {
 const btn = document.querySelector('.talk');
 const content = document.querySelector('.content');
 
-
-
 let inactivityTimeout; // Variable to track inactivity timeout
 let recognitionTimeout; // Variable to track program exit timeout
 btn.style.display = 'none';
-
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
