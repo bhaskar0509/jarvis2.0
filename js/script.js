@@ -19,6 +19,7 @@ const content = document.querySelector('.content');
 
 let inactivityTimeout; // Variable to track inactivity timeout
 let recognitionTimeout; // Variable to track program exit timeout
+btn.style.display = 'none';
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
@@ -46,6 +47,11 @@ function wishMe() {
 // Speech Recognition Setup
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
+function initiateJarvis() {
+    speak("I am Jarvis, may I help you?");
+    isEnterPressed = true; // Program is now running
+    recognition.start(); // Start listening for "Hello Jarvis"
+}
 
 // Show the glowing button when Jarvis asks "How may I help you?"
 function showButton() {
@@ -57,7 +63,8 @@ function showButton() {
 btn.addEventListener('click', () => {
     content.textContent = "Listening....";
     btn.classList.remove('glow');
-    recognition.start(); // Start listening when the button is clicked
+    recognition.start();
+    isRecognitionActive = true; // Start listening when the button is clicked
 });
 
 // Listen for commands after "Hello Jarvis"
@@ -139,8 +146,12 @@ function takeCommand(message) {
         speak("I didn't understand that. Could you please repeat?");
     }
 
-    // Optional: Set inactivity timeout or any additional logic can be added here
+    // Stop recognition after executing a command
+    recognition.stop();
+    isRecognitionActive = false; // Recognition is no longer active
 }
+// Optional: Set inactivity timeout or any additional logic can be added here
+
 
 // Start interaction only after user presses "Enter"
 window.addEventListener('keydown', (e) => {
@@ -153,5 +164,21 @@ window.addEventListener('keydown', (e) => {
 
 // Allow the button to restart recognition after it has been stopped
 recognition.onend = () => {
-    btn.classList.add('glow'); // Make the button glow again when recognition stops
+    if (!isRecognitionActive) {
+    btn.classList.add('glow');
+    } // Make the button glow again when recognition stops
 };
+// Exit the program and reset for another "Enter" press
+function exitProgram() {
+    content.textContent = ""; // Hide the listening message
+    btn.style.display = 'none'; // Hide the button
+    isEnterPressed = false; // Program is no longer running
+}
+
+// Start interaction when "Enter" is pressed for the first time
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !isEnterPressed) {
+        initiateJarvis(); // Greet and initiate Jarvis
+    }
+});
+
