@@ -8,12 +8,19 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+  
+
+
+
+
+
 const btn = document.querySelector('.talk');
 const content = document.querySelector('.content');
 
 let inactivityTimeout; // Variable to track inactivity timeout
 let recognitionTimeout; // Variable to track program exit timeout
 btn.style.display = 'none'; // Initially hide the button
+
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
@@ -55,24 +62,23 @@ btn.addEventListener('click', () => {
     recognition.start(); // Start listening when the button is clicked
 });
 
-// Listen for commands and process accordingly
+// Listen for commands after "Hello Jarvis"
 recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript.toLowerCase();
     content.textContent = transcript;
-    if (transcript.includes('hello jarvis')) {
-        speak("Hello Sir, How may I help you today?");
-        showButton(); // Show the button when "Hello Jarvis" is detected
-    } else {
-        takeCommand(transcript); // Process other commands
-    }
+    takeCommand(transcript); // Process the command
 };
 
-// Function to process other commands
+// Function to process commands
 function takeCommand(message) {
+    // Clear the inactivity timeout whenever a command is received
     clearTimeout(inactivityTimeout);
-    clearTimeout(recognitionTimeout);
+    clearTimeout(recognitionTimeout); // Clear the program exit timeout
 
-    if (message.includes("open google")) {
+    if (message.includes('hey') || message.includes('hello')) {
+        speak("Hello Sir, How may I help you today?");
+        showButton(); // Show the button when Jarvis says "How may I help you?"
+    } else if (message.includes("open google")) {
         window.open("https://google.com", "_blank");
         speak("Opening Google...");
     } else if (message.includes("open youtube")) {
@@ -99,9 +105,11 @@ function takeCommand(message) {
     } else if (message.includes('volume up')) {
         speak("Increasing volume...");
         // Trigger system-level command for volume up
+        // (Platform-specific code or external integration needed)
     } else if (message.includes('volume down')) {
         speak("Decreasing volume...");
         // Trigger system-level command for volume down
+        // (Platform-specific code or external integration needed)
     } else if (message.includes('mute')) {
         speak("Muting volume...");
         // Trigger system command or use external library to mute volume
@@ -123,14 +131,17 @@ function takeCommand(message) {
     } else if (message.includes('stop')) {
         speak("Goodbye, Sir.");
         recognition.stop();
+        
         // Set a timeout to refresh the page after saying goodbye
         setTimeout(() => {
             location.reload(); // Refresh the page after 5 seconds
-        }, 5000);
-        return;
+        }, 5000); // 5 seconds
+        return; // Exit the function
     } else {
         speak("I didn't understand that. Could you please repeat?");
     }
+
+    // Optional: Set inactivity timeout or any additional logic can be added here
 }
 
 // Start interaction only after user presses "Enter"
