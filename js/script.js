@@ -19,7 +19,7 @@ const content = document.querySelector('.content');
 
 let inactivityTimeout; // Variable to track inactivity timeout
 let recognitionTimeout; // Variable to track program exit timeout
-btn.style.display = 'none';
+btn.style.display = 'hide';
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
