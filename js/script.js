@@ -8,19 +8,13 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-  
-
-
-
-
-
 const btn = document.querySelector('.talk');
 const content = document.querySelector('.content');
 
 let inactivityTimeout; // Variable to track inactivity timeout
 let recognitionTimeout; // Variable to track program exit timeout
-btn.style.display = 'none'; // Initially hide the button
 
+btn.style.display = 'none'; // Initially hide the button
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
@@ -49,20 +43,20 @@ function wishMe() {
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
-// Show the glowing button when Jarvis asks "How may I help you?"
+// Show the glowing button
 function showButton() {
     btn.style.display = 'block';
     btn.classList.add('glow');
 }
 
-// Stop the glowing effect when the button is clicked
+// Stop the glowing effect and start listening when the button is clicked
 btn.addEventListener('click', () => {
     content.textContent = "Listening....";
-    btn.classList.remove('glow');
+    btn.classList.remove('glow'); // Stop the glowing effect
     recognition.start(); // Start listening when the button is clicked
 });
 
-// Listen for commands after "Hello Jarvis"
+// Listen for commands after recognition starts
 recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript.toLowerCase();
     content.textContent = transcript;
@@ -105,11 +99,9 @@ function takeCommand(message) {
     } else if (message.includes('volume up')) {
         speak("Increasing volume...");
         // Trigger system-level command for volume up
-        // (Platform-specific code or external integration needed)
     } else if (message.includes('volume down')) {
         speak("Decreasing volume...");
         // Trigger system-level command for volume down
-        // (Platform-specific code or external integration needed)
     } else if (message.includes('mute')) {
         speak("Muting volume...");
         // Trigger system command or use external library to mute volume
@@ -136,12 +128,10 @@ function takeCommand(message) {
         setTimeout(() => {
             location.reload(); // Refresh the page after 5 seconds
         }, 5000); // 5 seconds
-        return; // Exit the function
+        return;
     } else {
         speak("I didn't understand that. Could you please repeat?");
     }
-
-    // Optional: Set inactivity timeout or any additional logic can be added here
 }
 
 // Start interaction only after user presses "Enter"
@@ -149,6 +139,7 @@ window.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         speak("I am Jarvis!");
         wishMe(); // Call the greeting function
+        showButton(); // Show the button and make it glow automatically
         recognition.start(); // Start listening for "Hello Jarvis" after greeting
     }
 });
@@ -157,5 +148,7 @@ window.addEventListener('keydown', (e) => {
 recognition.onend = () => {
     btn.classList.add('glow'); // Make the button glow again when recognition stops
 };
+
+
 
 
