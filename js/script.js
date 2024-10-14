@@ -1,3 +1,5 @@
+// JavaScript code with greeting handling
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/jarvis2.0/service-worker.js').then((registration) => {
@@ -11,10 +13,11 @@ if ('serviceWorker' in navigator) {
 const btn = document.querySelector('.talk');
 const content = document.querySelector('.content');
 
-let inactivityTimeout; // Variable to track inactivity timeout
-let recognitionTimeout; // Variable to track program exit timeout
+let inactivityTimeout;
+let recognitionTimeout;
+let isGreeting = false; // Flag to check if greeting is in progress
 
- // Initially hide the button
+btn.style.display = 'none';
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
@@ -52,82 +55,43 @@ function showButton() {
 // Stop the glowing effect and start listening when the button is clicked
 btn.addEventListener('click', () => {
     content.textContent = "Listening....";
-    btn.classList.remove('glow'); // Stop the glowing effect
-    recognition.start(); // Start listening when the button is clicked
+    btn.classList.remove('glow');
+    recognition.start();
 });
 
 // Listen for commands after recognition starts
 recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript.toLowerCase();
     content.textContent = transcript;
-    takeCommand(transcript); // Process the command
+    takeCommand(transcript);
 };
 
 // Function to process commands
 function takeCommand(message) {
-    // Clear the inactivity timeout whenever a command is received
     clearTimeout(inactivityTimeout);
-    clearTimeout(recognitionTimeout); // Clear the program exit timeout
+    clearTimeout(recognitionTimeout);
+
+    if (isGreeting) {
+        // If greeting is in progress, don't process any commands
+        return;
+    }
 
     if (message.includes('hey') || message.includes('hello')) {
         speak("Hello Sir, How may I help you today?");
-        showButton(); // Show the button when Jarvis says "How may I help you?"
+        showButton();
     } else if (message.includes("open google")) {
         window.open("https://google.com", "_blank");
         speak("Opening Google...");
     } else if (message.includes("open youtube")) {
         window.open("https://youtube.com", "_blank");
         speak("Opening YouTube...");
-    } else if (message.includes("open facebook")) {
-        window.open("https://facebook.com", "_blank");
-        speak("Opening Facebook...");
-    } else if (message.includes('what is') || message.includes('who is') || message.includes('what are')) {
-        window.open(`https://www.google.com/search?q=${message.replace(" ", "+")}`, "_blank");
-        speak("This is what I found on the internet regarding " + message);
-    } else if (message.includes('wikipedia')) {
-        window.open(`https://en.wikipedia.org/wiki/${message.replace("wikipedia", "")}`, "_blank");
-        speak("This is what I found on Wikipedia regarding " + message);
-    } else if (message.includes('time')) {
-        const time = new Date().toLocaleTimeString();
-        speak("The time is " + time);
-    } else if (message.includes('date')) {
-        const date = new Date().toLocaleDateString();
-        speak("Today's date is " + date);
-    } else if (message.includes('calculator')) {
-        window.open('Calculator:///');
-        speak("Opening Calculator");
-    } else if (message.includes('volume up')) {
-        speak("Increasing volume...");
-        // Trigger system-level command for volume up
-    } else if (message.includes('volume down')) {
-        speak("Decreasing volume...");
-        // Trigger system-level command for volume down
-    } else if (message.includes('mute')) {
-        speak("Muting volume...");
-        // Trigger system command or use external library to mute volume
-    } else if (message.includes('unmute')) {
-        speak("Unmuting volume...");
-        // Trigger system command or use external library to unmute volume
-    } else if (message.includes('brightness up')) {
-        speak("Increasing brightness...");
-        // Use system-specific commands or external libraries to increase brightness
-    } else if (message.includes('brightness down')) {
-        speak("Decreasing brightness...");
-        // Use system-specific commands or external libraries to decrease brightness
-    } else if (message.includes('lock screen')) {
-        speak("Locking the screen...");
-        // JavaScript cannot directly lock the screen; OS-specific command needed
-    } else if (message.includes('screenshot')) {
-        speak("Taking a screenshot...");
-        // Use system-specific or external libraries to capture a screenshot
-    } else if (message.includes('stop')) {
+    } else if (message.includes("stop")) {
         speak("Goodbye, Sir.");
         recognition.stop();
-        
-        // Set a timeout to refresh the page after saying goodbye
+
         setTimeout(() => {
-            location.reload(); // Refresh the page after 5 seconds
-        }, 5000); // 5 seconds
+            location.reload();
+        }, 5000);
         return;
     } else {
         speak("I didn't understand that. Could you please repeat?");
@@ -138,16 +102,23 @@ function takeCommand(message) {
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         speak("I am Jarvis!");
+        isGreeting = true; // Set greeting flag to true
         wishMe(); // Call the greeting function
-        showButton(); // Show the button and make it glow automatically
-        recognition.start(); // Start listening for "Hello Jarvis" after greeting
+        showButton();
+
+        // Wait for the greeting to finish before allowing command processing
+        setTimeout(() => {
+            isGreeting = false; // Reset greeting flag after greeting is done
+            recognition.start(); // Start listening for "Hello Jarvis" after greeting
+        }, 3000); // Wait for 3 seconds to allow greeting to finish
     }
 });
 
 // Allow the button to restart recognition after it has been stopped
 recognition.onend = () => {
-    btn.classList.add('glow'); // Make the button glow again when recognition stops
+    btn.classList.add('glow');
 };
+
 
 
 
