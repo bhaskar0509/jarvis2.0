@@ -1,5 +1,3 @@
-// JavaScript code with greeting handling
-
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/jarvis2.0/service-worker.js').then((registration) => {
@@ -17,8 +15,7 @@ let inactivityTimeout;
 let recognitionTimeout;
 let isGreeting = false; // Flag to check if greeting is in progress
 
-btn.style.display = 'block';
-btn.disabled = true;
+btn.style.display = 'none';
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
@@ -74,6 +71,7 @@ function takeCommand(message) {
 
     if (isGreeting) {
         // If greeting is in progress, don't process any commands
+        console.log("Greeting in progress, ignoring command.");
         return;
     }
 
@@ -102,16 +100,22 @@ function takeCommand(message) {
 // Start interaction only after user presses "Enter"
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-        speak("I am Jarvis!");
-        isGreeting = true; // Set greeting flag to true
-        wishMe(); // Call the greeting function
-        showButton();
+        console.log("Enter key pressed");
+        if (!isGreeting) {
+            speak("I am Jarvis!");
+            isGreeting = true; // Set greeting flag to true
+            wishMe(); // Call the greeting function
+            showButton();
 
-        // Wait for the greeting to finish before allowing command processing
-        setTimeout(() => {
-            isGreeting = false; // Reset greeting flag after greeting is done
-            recognition.start(); // Start listening for "Hello Jarvis" after greeting
-        }, 3000); // Wait for 3 seconds to allow greeting to finish
+            // Wait for the greeting to finish before allowing command processing
+            setTimeout(() => {
+                isGreeting = false; // Reset greeting flag after greeting is done
+                console.log("Greeting completed, starting recognition");
+                recognition.start(); // Start listening for "Hello Jarvis" after greeting
+            }, 3000); // Wait for 3 seconds to allow greeting to finish
+        } else {
+            console.log("Greeting already in progress");
+        }
     }
 });
 
