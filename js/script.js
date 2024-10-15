@@ -1,3 +1,16 @@
+If the "open YouTube" command is not being detected, it could be due to case sensitivity, background noise, or speech recognition issues. To address this, you can modify the speech recognition logic to be more robust and reliable.
+
+Here are a few changes to improve the command detection:
+
+1. Use regular expressions to match commands more flexibly.
+
+
+2. Normalize the recognized text to ensure consistent matching.
+
+
+
+Here is the updated code with improvements to command detection:
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/jarvis2.0/service-worker.js').then((registration) => {
@@ -15,7 +28,7 @@ let inactivityTimeout;
 let recognitionTimeout;
 
 // Show the button initially
-btn.style.display = 'block'; 
+btn.style.display = 'block';
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
@@ -59,7 +72,7 @@ btn.addEventListener('click', () => {
 
 // Listen for commands
 recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript.toLowerCase();
+    const transcript = event.results[0][0].transcript.toLowerCase().trim();
     content.textContent = transcript;
     takeCommand(transcript);
 };
@@ -69,16 +82,17 @@ function takeCommand(message) {
     clearTimeout(inactivityTimeout);
     clearTimeout(recognitionTimeout);
 
-    if (message.includes('hey') || message.includes('hello')) {
+    // Use regular expressions for flexible command matching
+    if (/hey|hello/.test(message)) {
         speak("Hello Sir, How may I help you today?");
         showButton();
-    } else if (message.includes("open google")) {
+    } else if (/open google/.test(message)) {
         window.open("https://google.com", "_blank");
         speak("Opening Google...");
-    } else if (message.includes("open youtube")) {
+    } else if (/open youtube/.test(message)) {
         window.open("https://youtube.com", "_blank");
         speak("Opening YouTube...");
-    } else if (message.includes("stop")) {
+    } else if (/stop/.test(message)) {
         speak("Goodbye, Sir.");
         recognition.stop();
         setTimeout(() => {
@@ -103,3 +117,7 @@ window.addEventListener('keydown', (e) => {
 recognition.onend = () => {
     btn.classList.add('glow');
 };
+
+Key Changes:
+
+
