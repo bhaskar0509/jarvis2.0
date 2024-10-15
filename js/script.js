@@ -97,11 +97,13 @@ function takeCommand(message) {
 
 // Start interaction after pressing "Enter"
 window.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !isJarvisActive) {
-        isJarvisActive = true; // Set Jarvis as active
-        speak("I am Jarvis!");
-        wishMe();
-        enableButton();
+    if (e.key === 'Enter') {
+        if (!isJarvisActive) {
+            isJarvisActive = true; // Set Jarvis as active
+            speak("I am Jarvis!");
+            wishMe();
+            enableButton();
+        }
     }
 });
 
