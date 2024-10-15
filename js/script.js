@@ -72,6 +72,12 @@ function takeCommand(message) {
     if (message.includes('hey') || message.includes('hello')) {
         speak("Hello Sir, How may I help you today?");
         showButton();
+    } else if (message.includes("open google")) {
+        window.open("https://google.com", "_blank");
+        speak("Opening Google...");
+    } else if (message.includes("open youtube")) {
+        window.open("https://youtube.com", "_blank");
+        speak("Opening YouTube...");
     } else if (message.includes("stop")) {
         speak("Goodbye, Sir.");
         recognition.stop();
