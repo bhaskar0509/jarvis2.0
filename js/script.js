@@ -1,4 +1,3 @@
-
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/jarvis2.0/service-worker.js').then((registration) => {
@@ -14,8 +13,9 @@ const content = document.querySelector('.content');
 
 let inactivityTimeout;
 let recognitionTimeout;
+let isJarvisActive = false; // Track if Jarvis is active
 
-// Show the button initially
+// Show the button initially but disable it
 btn.style.display = 'block';
 btn.disabled = true;
 
@@ -46,17 +46,19 @@ function wishMe() {
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
-// Show the glowing button
-function showButton() {
-    btn.style.display = 'block';
+// Enable and show the glowing button
+function enableButton() {
+    btn.disabled = false;
     btn.classList.add('glow');
 }
 
 // Stop the glowing effect and start listening
 btn.addEventListener('click', () => {
-    content.textContent = "Listening....";
-    btn.classList.remove('glow');
-    recognition.start();
+    if (!btn.disabled) {
+        content.textContent = "Listening....";
+        btn.classList.remove('glow');
+        recognition.start();
+    }
 });
 
 // Listen for commands
@@ -74,7 +76,7 @@ function takeCommand(message) {
     // Use regular expressions for flexible command matching
     if (/hey|hello/.test(message)) {
         speak("Hello Sir, How may I help you today?");
-        showButton();
+        enableButton();
     } else if (/open google/.test(message)) {
         window.open("https://google.com", "_blank");
         speak("Opening Google...");
@@ -95,18 +97,16 @@ function takeCommand(message) {
 
 // Start interaction after pressing "Enter"
 window.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isJarvisActive) {
+        isJarvisActive = true; // Set Jarvis as active
         speak("I am Jarvis!");
         wishMe();
-        showButton();
+        enableButton();
     }
 });
 
 // Restart recognition and make the button glow
 recognition.onend = () => {
     btn.classList.add('glow');
+    isJarvisActive = false; // Set Jarvis as inactive after command execution
 };
-
-Key Changes:
-
-
