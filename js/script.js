@@ -1,15 +1,3 @@
-If the "open YouTube" command is not being detected, it could be due to case sensitivity, background noise, or speech recognition issues. To address this, you can modify the speech recognition logic to be more robust and reliable.
-
-Here are a few changes to improve the command detection:
-
-1. Use regular expressions to match commands more flexibly.
-
-
-2. Normalize the recognized text to ensure consistent matching.
-
-
-
-Here is the updated code with improvements to command detection:
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -29,6 +17,7 @@ let recognitionTimeout;
 
 // Show the button initially
 btn.style.display = 'block';
+btn.disabled = true;
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
