@@ -17,7 +17,8 @@ let inactivityTimeout;
 let recognitionTimeout;
 let isGreeting = false; // Flag to check if greeting is in progress
 
-btn.style.display = 'none';
+
+
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
