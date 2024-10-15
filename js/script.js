@@ -16,7 +16,7 @@ let recognitionTimeout;
 
 // Show the button initially but disable it
 btn.style.display = 'block';
-
+btn.disabled = true;
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
