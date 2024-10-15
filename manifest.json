@@ -1,7 +1,7 @@
 {
     "short_name": "jarvis",
     "name": "Jarvis: Any help you?",
-    "start_url": "/jarvis2.0/",
+    "start_url": ".",
     "background_color": "#3367D6",
     "display": "standalone",
     "orientation": "portrait-primary",
