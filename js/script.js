@@ -14,7 +14,8 @@ const content = document.querySelector('.content');
 let inactivityTimeout;
 let recognitionTimeout;
 
-btn.style.display = 'block'; // Show the button initially
+// Show the button initially
+btn.style.display = 'block'; 
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
