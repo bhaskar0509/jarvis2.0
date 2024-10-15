@@ -11,11 +11,7 @@ if ('serviceWorker' in navigator) {
 }
 
 const btn = document.querySelector('.talk');
-const content = document.querySelector('.content');
-
-let inactivityTimeout;
-let recognitionTimeout;
-let isGreeting = false; // Flag to check if greeting is in progress
+const content = document.querySelector('.content') // Flag to check if greeting is in progress
 
 
 
