@@ -1,5 +1,3 @@
-// JavaScript code with greeting handling
-
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/jarvis2.0/service-worker.js').then((registration) => {
@@ -11,10 +9,12 @@ if ('serviceWorker' in navigator) {
 }
 
 const btn = document.querySelector('.talk');
-const content = document.querySelector('.content') // Flag to check if greeting is in progress
+const content = document.querySelector('.content');
 
+let inactivityTimeout;
+let recognitionTimeout;
 
-
+btn.style.display = 'block'; // Show the button initially
 
 // Function to speak text using SpeechSynthesis
 function speak(text) {
@@ -49,14 +49,14 @@ function showButton() {
     btn.classList.add('glow');
 }
 
-// Stop the glowing effect and start listening when the button is clicked
+// Stop the glowing effect and start listening
 btn.addEventListener('click', () => {
     content.textContent = "Listening....";
     btn.classList.remove('glow');
     recognition.start();
 });
 
-// Listen for commands after recognition starts
+// Listen for commands
 recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript.toLowerCase();
     content.textContent = transcript;
@@ -68,24 +68,12 @@ function takeCommand(message) {
     clearTimeout(inactivityTimeout);
     clearTimeout(recognitionTimeout);
 
-    if (isGreeting) {
-        // If greeting is in progress, don't process any commands
-        return;
-    }
-
     if (message.includes('hey') || message.includes('hello')) {
         speak("Hello Sir, How may I help you today?");
         showButton();
-    } else if (message.includes("open google")) {
-        window.open("https://google.com", "_blank");
-        speak("Opening Google...");
-    } else if (message.includes("open youtube")) {
-        window.open("https://youtube.com", "_blank");
-        speak("Opening YouTube...");
     } else if (message.includes("stop")) {
         speak("Goodbye, Sir.");
         recognition.stop();
-
         setTimeout(() => {
             location.reload();
         }, 5000);
@@ -95,28 +83,16 @@ function takeCommand(message) {
     }
 }
 
-// Start interaction only after user presses "Enter"
+// Start interaction after pressing "Enter"
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
         speak("I am Jarvis!");
-        isGreeting = true; // Set greeting flag to true
-        wishMe(); // Call the greeting function
+        wishMe();
         showButton();
-
-        // Wait for the greeting to finish before allowing command processing
-        setTimeout(() => {
-            isGreeting = false; // Reset greeting flag after greeting is done
-            recognition.start(); // Start listening for "Hello Jarvis" after greeting
-        }, 3000); // Wait for 3 seconds to allow greeting to finish
     }
 });
 
-// Allow the button to restart recognition after it has been stopped
+// Restart recognition and make the button glow
 recognition.onend = () => {
     btn.classList.add('glow');
 };
-
-
-
-
-
