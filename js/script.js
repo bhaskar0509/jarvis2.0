@@ -1,3 +1,5 @@
+// JavaScript code with greeting handling
+
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/jarvis2.0/service-worker.js').then((registration) => {
@@ -13,9 +15,8 @@ const content = document.querySelector('.content');
 
 let inactivityTimeout;
 let recognitionTimeout;
-let isJarvisActive = false; // Track if Jarvis is active
+let isGreeting = false; // Flag to check if greeting is in progress
 
-// Show the button initially but disable it
 btn.style.display = 'block';
 btn.disabled = true;
 
@@ -46,24 +47,22 @@ function wishMe() {
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
-// Enable and show the glowing button
-function enableButton() {
-    btn.disabled = false;
+// Show the glowing button
+function showButton() {
+    btn.style.display = 'block';
     btn.classList.add('glow');
 }
 
-// Stop the glowing effect and start listening
+// Stop the glowing effect and start listening when the button is clicked
 btn.addEventListener('click', () => {
-    if (!btn.disabled) {
-        content.textContent = "Listening....";
-        btn.classList.remove('glow');
-        recognition.start();
-    }
+    content.textContent = "Listening....";
+    btn.classList.remove('glow');
+    recognition.start();
 });
 
-// Listen for commands
+// Listen for commands after recognition starts
 recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript.toLowerCase().trim();
+    const transcript = event.results[0][0].transcript.toLowerCase();
     content.textContent = transcript;
     takeCommand(transcript);
 };
@@ -73,19 +72,24 @@ function takeCommand(message) {
     clearTimeout(inactivityTimeout);
     clearTimeout(recognitionTimeout);
 
-    // Use regular expressions for flexible command matching
-    if (/hey|hello/.test(message)) {
+    if (isGreeting) {
+        // If greeting is in progress, don't process any commands
+        return;
+    }
+
+    if (message.includes('hey') || message.includes('hello')) {
         speak("Hello Sir, How may I help you today?");
-        enableButton();
-    } else if (/open google/.test(message)) {
+        showButton();
+    } else if (message.includes("open google")) {
         window.open("https://google.com", "_blank");
         speak("Opening Google...");
-    } else if (/open youtube/.test(message)) {
+    } else if (message.includes("open youtube")) {
         window.open("https://youtube.com", "_blank");
         speak("Opening YouTube...");
-    } else if (/stop/.test(message)) {
+    } else if (message.includes("stop")) {
         speak("Goodbye, Sir.");
         recognition.stop();
+
         setTimeout(() => {
             location.reload();
         }, 5000);
@@ -95,20 +99,23 @@ function takeCommand(message) {
     }
 }
 
-// Start interaction after pressing "Enter"
+// Start interaction only after user presses "Enter"
 window.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
-        if (!isJarvisActive) {
-            isJarvisActive = true; // Set Jarvis as active
-            speak("I am Jarvis!");
-            wishMe();
-            enableButton();
-        }
+        speak("I am Jarvis!");
+        isGreeting = true; // Set greeting flag to true
+        wishMe(); // Call the greeting function
+        showButton();
+
+        // Wait for the greeting to finish before allowing command processing
+        setTimeout(() => {
+            isGreeting = false; // Reset greeting flag after greeting is done
+            recognition.start(); // Start listening for "Hello Jarvis" after greeting
+        }, 3000); // Wait for 3 seconds to allow greeting to finish
     }
 });
 
-// Restart recognition and make the button glow
+// Allow the button to restart recognition after it has been stopped
 recognition.onend = () => {
     btn.classList.add('glow');
-    isJarvisActive = false; // Set Jarvis as inactive after command execution
 };
