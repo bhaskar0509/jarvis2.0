@@ -95,13 +95,6 @@ function takeCommand(message) {
 }
 
 // Start interaction after pressing "Enter"
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-        speak("I am Jarvis!");
-        wishMe();
-        enableButton();
-    }
-});
 
 // Restart recognition and make the button glow
 recognition.onend = () => {
